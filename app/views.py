@@ -28,19 +28,19 @@ def index():
 
 
 @app.route('/book/')
-@login_required
+# @login_required
 def book():
     form = LoginForm()
-    books = db_session.query(Book).all()
-    return render_template("books.html", form=form, user=current_user, is_authenticated=True, books=books)
+    books = db_session.query(Book).order_by(Book.title)
+    return render_template("books.html", form=form, user=current_user, is_authenticated=current_user.is_authenticated(), books=books)
 
 
 @app.route('/author/')
-@login_required
+# @login_required
 def author():
     form = LoginForm()
-    authors = db_session.query(Author).all()
-    return render_template("authors.html", form=form, user=current_user, is_authenticated=True, authors=authors)
+    authors = db_session.query(Author).order_by(Author.name)
+    return render_template("authors.html", form=form, user=current_user, is_authenticated=current_user.is_authenticated(), authors=authors)
 
 
 @app.route('/book/<id>', methods=['GET', 'POST'])

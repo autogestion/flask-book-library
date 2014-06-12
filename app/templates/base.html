@@ -26,9 +26,9 @@
             <ul class="nav navbar-nav">
                 <li><a href="/">Home</a></li>
                 <li><a href="/register/">Registration</a></li>
-                {% if is_authenticated %}
                 <li><a href="/book/">All books</a></li>
                 <li><a href="/author/">All authors</a></li>
+                {% if is_authenticated %}
                 {% endif %}
             </ul>
             {% if is_authenticated %}
