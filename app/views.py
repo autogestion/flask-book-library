@@ -46,7 +46,7 @@ def author():
 @app.route('/book/<id>', methods=['GET', 'POST'])
 @login_required
 def book_edit(id):
-    form = LoginForm()
+    # form = LoginForm()
     book = db_session.query(Book).get(id)
     book_form = BookForm(request.form, obj=book)
     book_form.authors.choices = [(p.id, p.name) for p in db_session.query(Author).order_by('id')]
@@ -60,13 +60,13 @@ def book_edit(id):
         return redirect(url_for('index'))
 
     book_form.authors.data = [p.id for p in book.authors]
-    return render_template("book.html", bform=book_form, form=form, book=book, user=current_user, is_authenticated=True)
+    return render_template("book.html", bform=book_form, book=book, user=current_user, is_authenticated=True)
 
 
 @app.route('/book_add/', methods=['GET', 'POST'])
 @login_required
 def book_add():
-    form = LoginForm()
+    # form = LoginForm()
     book_form = BookForm(request.form)
     book_form.authors.choices = [(p.id, p.name) for p in db_session.query(Author).order_by('id')]
 
@@ -79,7 +79,7 @@ def book_add():
         flash('Successfully added.', 'success')
         return redirect(url_for('index'))
 
-    return render_template("new_book.html", bform=book_form, form=form, user=current_user, is_authenticated=True)
+    return render_template("new_book.html", bform=book_form, user=current_user, is_authenticated=True)
 
 
 @app.route('/book_rm/<id>', methods=['GET', 'POST'])
@@ -96,7 +96,7 @@ def book_rm(id):
 @app.route('/author/<id>', methods=['GET', 'POST'])
 @login_required
 def author_edit(id):
-    form = LoginForm()
+    # form = LoginForm()
     author = db_session.query(Author).get(id)
     author_form = AuthorForm(request.form, obj=author)
     author_form.books.choices = [(p.id, p.title) for p in db_session.query(Book).order_by('id')]
@@ -110,13 +110,13 @@ def author_edit(id):
         return redirect(url_for('index'))
 
     author_form.books.data = [p.id for p in author.books]
-    return render_template("author.html", bform=author_form, form=form, author=author, user=current_user, is_authenticated=True)
+    return render_template("author.html", bform=author_form, author=author, user=current_user, is_authenticated=True)
 
 
 @app.route('/author_add/', methods=['GET', 'POST'])
 @login_required
 def author_add():
-    form = LoginForm()
+    # form = LoginForm()
     author_form = AuthorForm(request.form)
     author_form.books.choices = [(p.id, p.title) for p in db_session.query(Book).order_by('id')]
 
@@ -129,7 +129,7 @@ def author_add():
         flash('Successfully added.', 'success')
         return redirect(url_for('index'))
 
-    return render_template("new_author.html", bform=author_form, form=form, user=current_user, is_authenticated=True)
+    return render_template("new_author.html", bform=author_form, user=current_user, is_authenticated=True)
 
 
 @app.route('/author_rm/<id>', methods=['GET', 'POST'])
